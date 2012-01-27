@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html><head>
+<title>JS Number Crushing Test</title>
+<link rel='stylesheet' type='text/css' href="dashboard.css" />
+</head>
+
+<body>
+<script type="text/javascript" src="../../d3/d3.min.js"></script>
+<h1>Logging the results:</h1>
+<div id='log' style='font-family:monotype'>
+<div>Test,Initialize,Count Variance,Sort,Q10000</div>
+</div>
+</body>
+
+<script>
+window.onload = function() {
+
+var data = [];
+var log = d3.selectAll("#log");
+var iterations = 10;
+
+var bigint = 65546*65536;
+function rsort(a) {
+	for (var div = 1, radix = 16; div < bigint; div *= radix) {
+		var piles = [];
+		for (var i = 0; i < a.length; ++i) {
+			var p = Math.floor(a[i] / div) % radix;
+			(piles[p] || (piles[p] = [])).push(a[i]);
+		}
+		for (var i = 0, ai = 0; i < piles.length; ++i) {
+			if (!piles[i]) continue;
+			for (var pi = 0; pi < piles[i].length; ++pi)
+				a[ai++] = piles[i][pi];
+		}
+	}
+}
+
+this.iteration = function() {
+	var array = [], result = [], tm_stop = 0;
+	result.push(iterations);
+	
+	var tm_start = new Date().getTime();
+
+	for (var i=1;i<=1E6;i++) {
+		array.push(Math.floor(Math.random()*100));
+	}
+
+	tm_stop = new Date().getTime();
+	result.push((tm_stop - tm_start)/1000);
+	tm_start = tm_stop;
+
+	var avg = d3.mean(array);
+	var variance = 0;
+	array.forEach(function(v){ variance+=(v-avg)*(v-avg) });
+	variance /= array.length;
+
+	tm_stop = new Date().getTime();
+	result.push((tm_stop - tm_start)/1000);
+	tm_start = tm_stop;
+	
+	var tmp = array;
+	rsort(tmp);
+	tm_stop = new Date().getTime();
+	result.push((tm_stop - tm_start)/1000);
+	tm_start = tm_stop;
+	
+	var alen = array.length-1;
+	var quantiles = [];
+	for (var quantile=0;quantile<=10000;quantile++) {
+		var alq = alen * quantile / 10000;
+		var idx = Math.floor(alq);
+		var diff = alq - idx;
+		
+		var qvalue =
+			diff < 0.001 ?
+			tmp[idx] :
+			Math.floor(tmp[idx] * (1 - diff) + tmp[idx+1] * diff +.5);
+		
+		quantiles.push(qvalue);
+	}
+	tm_stop = new Date().getTime();
+	result.push((tm_stop - tm_start)/1000);
+	
+	data.push([result.join(',')]);
+	log.selectAll("div.line").data(data).enter().append("div").attr("class", "line").text(String);
+
+	if (--iterations > 0) this.setTimeout(this.iteration, 100);
+};
+
+
+setTimeout(this.iteration,100);
+
+};
+
+</script>
+
+
+</html>
