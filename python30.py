@@ -9,7 +9,7 @@ for a in (range(0,10)):
 	result = [10-a]
 	tm_start = time.time()
 	for x in (range(1000000)):
-		array.append(int(math.floor(random.random()*100))) # I know there is a shortcut
+		array.append(int(math.floor(random.random()*100))) # randint is slower
 	tm_end = time.time()
 	result.append(tm_end - tm_start)
 	tm_start = tm_end
