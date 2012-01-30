@@ -19,7 +19,7 @@ test <- function(num){
   e <- Sys.time()
   T4 <- as.numeric(e-s)
   
-  cat(sprintf("%d,%.2f,%.2f,%.2f,%.2f,%.2f\n",num,T1,T2,T3,T4,sum(T1,T2,T3,T4)))
+  cat(sprintf("%d,%.3f,%.3f,%.3f,%.3f,%.3f\n",num,T1,T2,T3,T4,sum(T1,T2,T3,T4)))
 }
 
 cat("Test,Initialize,Count Variance,Sort,Q10000,Total\n")

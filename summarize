@@ -1,0 +1,31 @@
+#!/usr/bin/Rscript
+
+calcme <- function(fn) {
+	tab <- read.table(fn, sep=",", header=1)
+	ret = c()
+	for ( m in sapply(tab[2:6], mean) ) {
+		ret = c(ret, as.numeric(sprintf("%.2f",m)))
+	}
+	#warning(ret, immediate.=TRUE)
+	test <- sprintf("%.3f", max(array(sapply(tab[2:6], mad))))
+	c(fn, ret, test)
+}
+
+dirs <- list.dirs('output',full.names = TRUE)
+
+results <- c()
+c <- 0
+
+for (dr in dirs) {
+	for (fn in list.files(dr, '*.dat', full.names = TRUE)) {
+		tm <- c(results, calcme(fn))
+		results <- tm
+		c <- c+1
+	}
+}
+
+results <- t(matrix(results, ncol=c))
+res <- results[order(results[,6]),]
+colnames(res) <- c("Test","Initialize","Count Variance","Sort","Q10000","Total", "Max MAD")
+
+write.table(res,  row.names = FALSE, file = "output/summary.csv", quote=FALSE, sep = ",")
