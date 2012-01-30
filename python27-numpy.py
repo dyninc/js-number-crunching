@@ -1,6 +1,6 @@
 #!/usr/bin/python2.7
 
-import time, random, math, itertools
+import time, random, math, itertools, numpy
 
 print("Test,Initialize,Count Variance,Sort,Q10000,Total");
 
@@ -8,23 +8,16 @@ for a in (range(0,10)):
 	array = []
 	result = [10-a]
 	tm_start = time.time()
-	array = [int(math.floor(random.random() * 100)) for x in xrange(1000000)]
+	array = numpy.random.random_integers(0,100,1E6)
 	tm_end = time.time()
 	result.append(tm_end - tm_start)
 	tm_start = tm_end
 
-	summ = sum(array)
-	variance = 0
-	avg = summ / len(array);
-	for x in array:
-		variance += (x-avg)**2
-	variance /= len(array);
-	print variance
-	tm_end = time.time()
+	variance = numpy.var(array)
 	result.append(tm_end - tm_start)
 	tm_start = tm_end
 
-	tmp = sorted(array)
+	tmp = numpy.sort(array)
 	tm_end = time.time()
 	result.append(tm_end - tm_start)
 	tm_start = tm_end
