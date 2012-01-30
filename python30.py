@@ -8,15 +8,16 @@ for a in (range(0,10)):
 	array = []
 	result = [10-a]
 	tm_start = time.time()
-	for x in (range(1000000)):
-		array.append(int(math.floor(random.random()*100))) # randint is slower
+	#for x in (range(1000000)):
+	#	array.append(int(math.floor(random.random()*100))) # randint is slower
+	array = [int(math.floor(random.random() * 100)) for x in range(1000000)]
 	tm_end = time.time()
 	result.append(tm_end - tm_start)
 	tm_start = tm_end
 
-	sum = math.fsum(array)
+	summ = sum(array)
 	variance = 0
-	avg = sum / len(array);
+	avg = summ / len(array);
 	for x in array:
 		variance += (x-avg)**2
 	variance /= len(array);
@@ -45,7 +46,7 @@ for a in (range(0,10)):
 	result.append(tm_end - tm_start)
 	tm_start = tm_end
 
-	result.append(math.fsum(result[1:]))
+	result.append(sum(result[1:]))
 	outfmt = "{:d},"+",".join(itertools.repeat("{:.3f}",len(result)-1))
 	print(outfmt.format(*result))
 
