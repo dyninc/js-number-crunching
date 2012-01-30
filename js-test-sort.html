@@ -8,7 +8,7 @@
 <script type="text/javascript" src="../../d3/d3.min.js"></script>
 <h1>Logging the results:</h1>
 <div id='log' style='font-family:monotype'>
-<div>Test,Initialize,Count Variance,Sort,Q10000</div>
+<div>Test,Initialize,Count Variance,Sort,Q10000,Total</div>
 </div>
 </body>
 
@@ -17,7 +17,7 @@ window.onload = function() {
 
 var data = [];
 var log = d3.selectAll("#log");
-var iterations = 2;
+var iterations = 10;
 
 this.iteration = function() {
 	var array = [], result = [], tm_stop = 0;
@@ -65,7 +65,8 @@ this.iteration = function() {
 	tm_stop = new Date().getTime();
 	result.push((tm_stop - tm_start)/1000);
 	
-	data.push([result.join(',')]);
+	result.push(d3.sum(result, function(d,i){return i>0? d:0}))
+	data.push([result.map(function(d,i){return i>0?d.toFixed(3):d}).join(',')]);
 	log.selectAll("div.line").data(data).enter().append("div").attr("class", "line").text(String);
 
 	if (--iterations > 0) this.setTimeout(this.iteration, 100);

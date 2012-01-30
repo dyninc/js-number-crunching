@@ -3,6 +3,9 @@
 #include <sys/time.h>
 #include <stdlib.h> 
 
+
+// I'm not a C coder!
+
 int sort(const void *x, const void *y) {
 	return (*(int*)x - *(int*)y);
 }
@@ -70,6 +73,6 @@ int main() {
 		gettimeofday(&tm_stop, NULL);;
 		result[4] = timediff(&tm_stop, &tm_start);
 	
-		printf("%d,%.5f,%.5f,%.5f,%.5f\n", (int)result[0], result[1], result[2], result[3], result[4]);
+		printf("%d,%.3f,%.3f,%.5f,%.5f\n", (int)result[0], result[1], result[2], result[3], result[4]);
 	}
 }

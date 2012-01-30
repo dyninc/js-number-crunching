@@ -3,9 +3,6 @@
 use warnings;
 use strict;
 use Time::HiRes qw(time sleep);
-$|++;
-
-
 
 
 print "Test,Initialize,Count Variance,Sort,Q10000,Total\n";
@@ -14,23 +11,35 @@ for (1..10) {
 	
 	push @result, 11-$_;
 	my $tm_start = time;
-	for (1..1E6) {
-		push @array, int(rand()*100);
+	{
+		use integer;
+		for (1..1E6) {
+			push @array, rand(100);
+		}
 	}
 	$tm_end = time;
 	push @result, sprintf "%.3f", $tm_end - $tm_start;
 	$tm_start = $tm_end;
 
 	my ($sum, $variance) = (0, 0);
-	$sum += $_ for @array;
+	{
+		use integer;
+		$sum += $_ for @array;
+	}
 	my $avg = $sum / @array;
 	$variance += ($_ - $avg)**2 for @array;
 	$variance /= @array;
+
 	$tm_end = time;
+		
 	push @result, sprintf "%.3f", $tm_end - $tm_start;
 	$tm_start = $tm_end;
 
-	my @tmp = sort@array;
+	my @tmp;
+	{
+		use integer;
+		@tmp = sort {$a<=>$b} @array;
+	}
 	$tm_end = time;
 	push @result, sprintf "%.3f", $tm_end - $tm_start;
 	$tm_start = $tm_end;
@@ -51,11 +60,11 @@ for (1..10) {
 		push @quantiles, $qvalue;
 	}
 	$tm_end = time;
+
 	push @result, sprintf "%.3f", $tm_end - $tm_start;
 	$tm_start = 0; $tm_start += $_ for @result[1..$#result];
 	push @result, sprintf "%.3f", $tm_start;
 	print join(',', @result), "\n";
-	sleep .1;
 }
 
 

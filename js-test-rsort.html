@@ -19,6 +19,13 @@ var data = [];
 var log = d3.selectAll("#log");
 var iterations = 10;
 
+// Following sort borrowed from message of StackOverflow user Pointy
+// (http://stackoverflow.com/users/182668/pointy) on question 
+// "Radix Sort in JavaScript" 
+// http://stackoverflow.com/questions/3817067/radix-sort-in-javascript
+// asked Sep 28 2010 by StackOverflow user Josh K
+// (http://stackoverflow.com/users/185657/josh-k)
+
 var bigint = 65546*65536;
 function rsort(a) {
 	for (var div = 1, radix = 16; div < bigint; div *= radix) {
@@ -34,6 +41,7 @@ function rsort(a) {
 		}
 	}
 }
+
 
 this.iteration = function() {
 	var array = [], result = [], tm_stop = 0;
@@ -80,15 +88,15 @@ this.iteration = function() {
 	}
 	tm_stop = new Date().getTime();
 	result.push((tm_stop - tm_start)/1000);
-	
-	data.push([result.join(',')]);
+	result.push(d3.sum(result, function(d,i){return i>0? d:0}))
+	data.push([result.map(function(d,i){return i>0?d.toFixed(3):d}).join(',')]);
 	log.selectAll("div.line").data(data).enter().append("div").attr("class", "line").text(String);
 
-	if (--iterations > 0) this.setTimeout(this.iteration, 100);
+	if (--iterations > 0) this.setTimeout(this.iteration, 1);
 };
 
 
-setTimeout(this.iteration,100);
+this.iteration();
 
 };
 

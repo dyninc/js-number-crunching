@@ -1,10 +1,8 @@
-#!/usr/bin/python2.7
+#!/usr/bin/python3
 
-import time, random, math
-
+import time, random, math, itertools
 
 print("Test,Initialize,Count Variance,Sort,Q10000,Total");
-
 
 for a in (range(0,10)):
 	array = []
@@ -48,7 +46,7 @@ for a in (range(0,10)):
 	tm_start = tm_end
 
 	result.append(math.fsum(result[1:]))
-	print(result[0], ",".join(map(lambda x: "{:.2f}".format(x), result[1:])))
-	time.sleep(0.1)
+	outfmt = "{:d},"+",".join(itertools.repeat("{:.3f}",len(result)-1))
+	print(outfmt.format(*result))
 
 

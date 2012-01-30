@@ -51,7 +51,7 @@ function hello(iteration) {
 	result.push((tm_stop - tm_start)/1000);
 	
 	result.push(result[1] + result[2] + result[3] + result[4]);
-	console.log(result.join(","))
+	console.log(result.map(function(d,i){return i>0?d.toFixed(3):d}).join(','));
 }
 
 console.log("Test,Initialize,Count Variance,Sort,Q10000,Total");
