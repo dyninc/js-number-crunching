@@ -69,11 +69,11 @@ this.iteration = function() {
 	data.push([result.map(function(d,i){return i>0?d.toFixed(3):d}).join(',')]);
 	log.selectAll("div.line").data(data).enter().append("div").attr("class", "line").text(String);
 
-	if (--iterations > 0) this.setTimeout(this.iteration, 100);
+	if (--iterations > 0) this.setTimeout(this.iteration, 0);
 };
 
 
-setTimeout(this.iteration,100);
+this.setTimeout(this.iteration,1);
 
 };
 

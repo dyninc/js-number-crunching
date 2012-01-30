@@ -2,7 +2,7 @@
 
 use warnings;
 use strict;
-use Time::HiRes qw(time sleep);
+use Time::HiRes qw(time);
 
 
 print "Test,Initialize,Count Variance,Sort,Q10000,Total\n";

@@ -1,6 +1,6 @@
 #!/usr/local/bin/node
 
-function hello(iteration) {
+function test(iteration) {
 	var array = [];
 	var result = [];
 	var tm_stop = 0;
@@ -55,5 +55,5 @@ function hello(iteration) {
 }
 
 console.log("Test,Initialize,Count Variance,Sort,Q10000,Total");
-for (var i=10;i>0;i--) hello(i);
+for (var i=10;i>0;i--) test(i);
 

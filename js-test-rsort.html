@@ -8,7 +8,7 @@
 <script type="text/javascript" src="../../d3/d3.min.js"></script>
 <h1>Logging the results:</h1>
 <div id='log' style='font-family:monotype'>
-<div>Test,Initialize,Count Variance,Sort,Q10000</div>
+<div>Test,Initialize,Count Variance,Sort,Q10000,Total</div>
 </div>
 </body>
 
@@ -96,7 +96,7 @@ this.iteration = function() {
 };
 
 
-this.iteration();
+this.setTimeout(this.iteration, 1);
 
 };
 
