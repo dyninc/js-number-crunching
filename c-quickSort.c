@@ -4,11 +4,7 @@
 #include <stdlib.h>
 
 
-// I'm not a C coder!
-
-int sort(const void *x, const void *y) {
-	return (*(int*)x - *(int*)y);
-}
+// I'm not a C coder
 
 double timediff(struct timeval *t2, struct timeval *t1) {
 	long int diff = (t2->tv_usec + 1000000 * t2->tv_sec) - (t1->tv_usec + 1000000 * t1->tv_sec);
@@ -30,23 +26,26 @@ double timediff(struct timeval *t2, struct timeval *t1) {
 //    quickSort(&myArray[3],5); // sorts elements 3, 4, 5, 6, and 7
 
 int quickSort(int *arr, int elements) {
+	#define  MAX_LEVELS  1000
 
-  #define  MAX_LEVELS  1000
+	int  piv, beg[MAX_LEVELS], end[MAX_LEVELS], i=0, L, R;
+	beg[0]=0; end[0]=elements;
 
-  int  piv, beg[MAX_LEVELS], end[MAX_LEVELS], i=0, L, R ;
+	while (i>=0) {
+		L=beg[i]; R=end[i]-1;
+		if (L<R) {
+			piv=arr[L]; if (i==MAX_LEVELS-1) return 0;
+			while (L<R) {
+				while (arr[R]>=piv && L<R) R--; if (L<R) arr[L++]=arr[R];
+				while (arr[L]<=piv && L<R) L++; if (L<R) arr[R--]=arr[L];
+			}
+			arr[L]=piv; beg[i+1]=L+1; end[i+1]=end[i]; end[i++]=L;
+		} else {
+			i--;
+		}
+	}
 
-  beg[0]=0; end[0]=elements;
-  while (i>=0) {
-    L=beg[i]; R=end[i]-1;
-    if (L<R) {
-      piv=arr[L]; if (i==MAX_LEVELS-1) return 0;
-      while (L<R) {
-        while (arr[R]>=piv && L<R) R--; if (L<R) arr[L++]=arr[R];
-        while (arr[L]<=piv && L<R) L++; if (L<R) arr[R--]=arr[L]; }
-      arr[L]=piv; beg[i+1]=L+1; end[i+1]=end[i]; end[i++]=L; }
-    else {
-      i--; }}
-  return 1;
+	return 1;
 }
 
 
@@ -57,16 +56,14 @@ int main() {
 	int iterations, i;
 	for (iterations = 10; iterations > 0; iterations--) {
 		int arraylength = (int)1E6;
-		
-		
+
 		double result[5] = {0};
 		struct timeval tm_stop;
 		result[0] = iterations;
-		
-		
+
 		struct timeval tm_start;
 		gettimeofday(&tm_start, NULL);
-		
+
 		int array[arraylength];
 		for (i=0;i<arraylength;i++) {
 			array[i] = rand()%100;
@@ -75,16 +72,16 @@ int main() {
 		gettimeofday(&tm_stop, NULL);
 		result[1] = timediff(&tm_stop, &tm_start);
 		tm_start = tm_stop;
-		
+
 		int sum = 0;
 		for (i=0; i < arraylength; i++)
 			sum+=array[i];
-		
+
 		double avg = sum/arraylength;
 		double variance = 0;
 		for (i=0;i<arraylength;i++) variance+=(array[i]-avg)*(array[i]-avg);
 		variance /= arraylength;
-   
+
 		gettimeofday(&tm_stop, NULL);;
 		result[2] = timediff(&tm_stop, &tm_start);
 		tm_start = tm_stop;
@@ -113,9 +110,10 @@ int main() {
 		gettimeofday(&tm_stop, NULL);;
 		result[4] = timediff(&tm_stop, &tm_start);
 
-		printf("%d,%.3f,%.3f,%.3f,%.3f,%.3f\n", (int)result[0],\
-		                                        result[1], result[2], result[3], result[4], 
-		                                        result[1] + result[2] + result[3] + result[4]);
+		printf("%d,%.3f,%.3f,%.3f,%.3f,%.3f\n", 
+		           (int)result[0],
+		           result[1], result[2], result[3], result[4],
+		           result[1] + result[2] + result[3] + result[4]);
 	}
 	return 0;
 }

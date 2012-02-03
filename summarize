@@ -6,7 +6,6 @@ calcme <- function(fn) {
 	for ( m in sapply(tab[2:6], mean) ) {
 		ret = c(ret, as.numeric(sprintf("%.2f",m)))
 	}
-	#warning(ret, immediate.=TRUE)
 	test <- sprintf("%.3f", max(array(sapply(tab[2:6], mad))))
 	c(fn, ret, test)
 }

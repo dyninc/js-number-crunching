@@ -19,7 +19,6 @@ for a in (range(0,10)):
 	for x in array:
 		variance += (x-avg)**2
 	variance /= len(array);
-	print variance
 	tm_end = time.time()
 	result.append(tm_end - tm_start)
 	tm_start = tm_end
