@@ -1,0 +1,22 @@
+This is suite of tests for checking speed of number crushing in
+server-side interpreted programs, server-side compiled programs and
+in browser-running JavaScript.
+
+Pre-requisites to run all tests:
+* Perl 5
+* Python 2.7
+* Python 3.0
+* node.js
+* R and Rscript
+* Mongo shell (needs server running somewhere)
+* Java compiler and runtime
+* gcc and standard C libs
+* make program
+
+
+To re-generate data remove dat files from output dir and issue make
+command. To generate summary.csv run summary R script. Summary will
+pick up any sub-directories and *.dat files in them. Copy-paste
+results from browser to appropriate locations to include them into
+summary.csv (which eventually will be sorted by "Total Time" column)
+

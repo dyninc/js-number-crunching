@@ -1,6 +1,6 @@
 #!/usr/bin/Rscript
 
-test <- function(num){
+test <- function(){
   s <- Sys.time()
   a <- sample(0:99,1E6,replace=T)
   e <- Sys.time()
@@ -19,18 +19,11 @@ test <- function(num){
   e <- Sys.time()
   T4 <- as.numeric(e-s)
   
-  cat(sprintf("%d,%.3f,%.3f,%.3f,%.3f,%.3f\n",num,T1,T2,T3,T4,sum(T1,T2,T3,T4)))
+  return(c(T1,T2,T3,T4))
 }
 
 cat("Test,Initialize,Count Variance,Sort,Q10000,Total\n")
-test(10)
-test(9)
-test(8)
-test(7)
-test(6)
-test(5)
-test(4)
-test(3)
-test(2)
-test(1)
-
+for(num in rev(1:10)) {
+  RESULT <- test()
+  cat(sprintf("%d,%s,%.3f\n",num,paste(sprintf("%.2f",RESULT), sep="",collapse=","),sum(RESULT)))
+}

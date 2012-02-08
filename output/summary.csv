@@ -1,16 +1,19 @@
 Test,Initialize,Count Variance,Sort,Q10000,Total,Max MAD
 output/c-quickSort.c.dat,0.01,0,0.04,0,0.06,0.005
 output/python27-numpy.py.dat,0.03,0,0.09,0.02,0.13,0.003
-output/JavaStats.java.dat,0.07,0.03,0.05,0,0.16,0.001
+output/JavaStats.java.dat,0.07,0.04,0.05,0,0.16,0.002
 output/c-qsort.c.dat,0.01,0,0.16,0,0.17,0.000
-output/r-stats.r.dat,0.05,0.02,0.12,0.06,0.25,0.002
+output/r-stats.r.dat,0.05,0.02,0.12,0.06,0.25,0.008
 output/nodejs-stats.js.dat,0.09,0.07,0.23,0,0.38,0.013
 output/chrome/sort.dat,0.1,0.09,0.23,0,0.42,0.018
 output/chrome/rsort.dat,0.11,0.08,0.65,0,0.85,0.005
 output/perl-stats.pl.dat,0.19,0.32,0.68,0.02,1.21,0.000
 output/firefox/rsort.dat,0.04,0.23,1.03,0,1.31,0.016
+output/sony/sort.dat,0.31,0.52,0.73,0.01,1.56,0.029
 output/python27.py.dat,0.68,0.42,0.48,0.02,1.6,0.007
 output/ie9-otherCPU/sort.dat,0.25,0.75,0.75,0.01,1.76,0.050
 output/python30.py.dat,0.87,0.59,0.82,0.04,2.32,0.029
+output/mongo.js.dat,0.32,0.53,2.62,0.01,3.48,0.009
 output/firefox/sort.dat,0.04,0.26,3.2,0,3.51,0.025
 output/ie9-otherCPU/rsort.dat,0.25,0.66,3.05,0.01,3.97,0.062
+output/sony/rsort.dat,0.3,0.51,4.42,0.01,5.24,0.083
